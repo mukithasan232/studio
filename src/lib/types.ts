@@ -12,4 +12,4 @@ export interface Product {
   source: string;
 }
 
-export type GeneratedProductData = Omit<Product, "id"_ | "timestamp" | "userId">;
+export type GeneratedProductData = Omit<Product, "id" | "timestamp" | "userId">;

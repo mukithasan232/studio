@@ -1,45 +1,107 @@
 "use client";
 
-import React, { useState } from "react";
-import AppHeader from "@/app/components/app-header";
-import AiImporterForm from "@/app/components/ai-importer-form";
-import ProductPreview from "@/app/components/product-preview";
-import ProductList from "@/app/components/product-list";
-import InstructionBox from "@/app/components/instruction-box";
-import type { GeneratedProductData } from "@/lib/types";
+import React from "react";
+import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { ShoppingCart } from "lucide-react";
+import { products } from "@/lib/placeholder-images";
 
-export default function AffiliateImporterPage() {
-  const [isGenerating, setIsGenerating] = useState(false);
-  const [previewData, setPreviewData] = useState<GeneratedProductData | null>(null);
-
-  const handleProductPublished = () => {
-    // Firestore's onSnapshot will update the list automatically.
-    // We just clear the form and preview.
-    setPreviewData(null);
-  };
-
+export default function LandingPage() {
   return (
-    <main className="max-w-6xl mx-auto p-4 md:p-8">
-      <AppHeader />
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-8">
-        <div className="lg:col-span-1 space-y-8 h-fit lg:sticky top-8">
-          <AiImporterForm
-            isGenerating={isGenerating}
-            setIsGenerating={setIsGenerating}
-            setPreviewData={setPreviewData}
-            onProductPublished={handleProductPublished}
-          />
-          <InstructionBox />
+    <main className="flex-1">
+      <section className="relative w-full pt-12 md:pt-24 lg:pt-32">
+        <Image
+          src="https://images.unsplash.com/photo-1522204523234-8729aa6e3d5f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxoZXJvJTIwYmFja2dyb3VuZHxlbnwwfHx8fDE3MTc4NzUwODR8MA&ixlib=rb-4.0.3&q=80&w=1080"
+          layout="fill"
+          objectFit="cover"
+          alt="Hero background"
+          className="absolute inset-0 z-[-1] opacity-30"
+          data-ai-hint="hero background"
+        />
+        <div className="container px-4 md:px-6 space-y-10 xl:space-y-16">
+          <div className="grid max-w-[1300px] mx-auto gap-4 px-4 sm:px-6 md:px-10 md:grid-cols-2 md:gap-16">
+            <div>
+              <h1 className="lg:leading-tighter text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl xl:text-[3.4rem] 2xl:text-[3.75rem]">
+                Discover Your Next Favorite Thing
+              </h1>
+              <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl mt-4">
+                Explore our curated collection of high-quality products. We find the best, so you don't have to.
+              </p>
+              <div className="space-x-4 mt-6">
+                <Button size="lg">Explore Products</Button>
+                <Button size="lg" variant="outline">
+                  About Us
+                </Button>
+              </div>
+            </div>
+            <div className="flex justify-center items-center">
+              <Image
+                src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxoZWFkcGhvbmVzJTIwcHJvZHVjdHxlbnwwfHx8fDE3MTc4NzUxNDR8MA&ixlib=rb-4.0.3&q=80&w=1080"
+                width="600"
+                height="600"
+                alt="Featured Product"
+                className="mx-auto aspect-square overflow-hidden rounded-xl object-cover"
+                data-ai-hint="headphones product"
+              />
+            </div>
+          </div>
         </div>
-
-        <div className="lg:col-span-2 space-y-8">
-          <ProductPreview
-            isGenerating={isGenerating}
-            data={previewData}
-          />
-          <ProductList />
+      </section>
+      <section id="products" className="w-full py-12 md:py-24 lg:py-32 bg-muted">
+        <div className="container px-4 md:px-6">
+          <div className="flex flex-col items-center justify-center space-y-4 text-center">
+            <div className="space-y-2">
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Featured Products</h2>
+              <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                Hand-picked items that we think you'll love. High quality, great prices.
+              </p>
+            </div>
+          </div>
+          <div className="mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-12">
+            {products.map((product) => (
+              <Card key={product.id} className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <CardContent className="p-0">
+                  <Image
+                    src={product.imageUrl}
+                    alt={product.name}
+                    width="400"
+                    height="300"
+                    className="w-full h-48 object-cover"
+                    data-ai-hint={product.imageHint}
+                  />
+                  <div className="p-4">
+                    <h3 className="text-lg font-bold">{product.name}</h3>
+                    <p className="text-sm text-muted-foreground h-10">{product.description}</p>
+                    <div className="flex items-center justify-between mt-4">
+                      <span className="text-xl font-bold">${product.price.toFixed(2)}</span>
+                      <Button size="sm">
+                        <ShoppingCart className="mr-2 h-4 w-4" />
+                        Add to Cart
+                      </Button>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </div>
-      </div>
+      </section>
+       <section className="w-full py-12 md:py-24 lg:py-32">
+        <div className="container grid items-center justify-center gap-4 px-4 text-center md:px-6">
+          <div className="space-y-3">
+            <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">
+              Ready to Start Shopping?
+            </h2>
+            <p className="mx-auto max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+              Browse our full catalog and find the perfect products for you.
+            </p>
+          </div>
+          <div className="mx-auto w-full max-w-sm space-x-2">
+             <Button type="submit" size="lg">View All Products</Button>
+          </div>
+        </div>
+      </section>
     </main>
   );
 }
