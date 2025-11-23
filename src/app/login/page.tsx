@@ -40,11 +40,17 @@ export default function LoginPage() {
       if (!auth) return;
       setIsLoading(true);
       try {
-          const userCredential = await signInWithEmailAndPassword(auth, data.email, data.password);
-          const serverResponse = await signInWithEmail(new window.FormData(document.createElement('form')));
+          await signInWithEmailAndPassword(auth, data.email, data.password);
+          
+          const formData = new FormData();
+          formData.append('email', data.email);
+          
+          const serverResponse = await signInWithEmail(formData);
           
           if (serverResponse.success && serverResponse.idToken) {
               await signInWithCustomToken(auth, serverResponse.idToken);
+          } else {
+            throw new Error(serverResponse.error || "Server-side sign in failed.");
           }
 
           toast({ title: 'Success', description: 'Logged in successfully!' });
@@ -67,14 +73,19 @@ export default function LoginPage() {
           // First, create the user on the client to get immediate feedback
           await createUserWithEmailAndPassword(auth, data.email, data.password);
           
-          // Then, hit our server action to persist in Firebase Admin if needed (optional for this demo)
-          const formData = new window.FormData();
+          // Then, hit our server action to persist in Firebase Admin if needed
+          const formData = new FormData();
           formData.append('email', data.email);
           formData.append('password', data.password);
-          await signUpWithEmail(formData);
+          const serverResponse = await signUpWithEmail(formData);
+
+          if (!serverResponse.success) {
+            throw new Error(serverResponse.error || "Server-side sign up failed.");
+          }
 
           toast({ title: 'Success', description: 'Account created successfully! Please sign in.' });
-          // Switch to sign-in tab after successful sign-up
+          // You might want to switch to the sign-in tab automatically here
+          // For now, the user can click it.
       } catch (error: any) {
           toast({
               title: 'Sign Up Failed',
