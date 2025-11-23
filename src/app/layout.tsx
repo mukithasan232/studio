@@ -9,6 +9,7 @@ import { AuthProvider } from '@/context/auth-provider';
 import AuthButton from './components/auth-button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
+import Script from 'next/script';
 
 export const metadata: Metadata = {
   title: 'Codernest E-commerce',
@@ -26,6 +27,18 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet" />
+        <Script
+          strategy="afterInteractive"
+          src="https://www.googletagmanager.com/gtag/js?id=G-PH1L622DGV"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-PH1L622DGV');
+          `}
+        </Script>
       </head>
       <body className="font-body antialiased bg-background text-foreground">
         <AuthProvider>
