@@ -8,9 +8,8 @@ import ProductPreview from "@/app/components/product-preview";
 import ProductList from "@/app/components/product-list";
 import InstructionBox from "@/app/components/instruction-box";
 import type { GeneratedProductData } from "@/lib/types";
-import PrivateRoute from "@/app/components/private-route";
 
-function AdminDashboard() {
+export default function AdminPage() {
   const [isGenerating, setIsGenerating] = useState(false);
   const [previewData, setPreviewData] = useState<GeneratedProductData | null>(null);
   
@@ -43,12 +42,4 @@ function AdminDashboard() {
       </div>
     </main>
   );
-}
-
-export default function AdminPage() {
-    return (
-        <PrivateRoute>
-            <AdminDashboard />
-        </PrivateRoute>
-    )
 }

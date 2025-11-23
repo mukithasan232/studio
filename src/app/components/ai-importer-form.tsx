@@ -10,7 +10,7 @@ import { useToast } from "@/hooks/use-toast";
 import { generateProductDataAction } from "@/app/actions";
 import type { GeneratedProductData } from "@/lib/types";
 
-import { db, auth } from "@/lib/firebase";
+import { db } from "@/lib/firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
 interface AIImporterFormProps {
@@ -29,7 +29,7 @@ export default function AiImporterForm({ setIsGenerating, isGenerating, setPrevi
   const { toast } = useToast();
 
   const onSubmit: SubmitHandler<FormInputs> = async (formData) => {
-    if (!db || !auth?.currentUser) {
+    if (!db) {
       toast({
         title: "Connection Error",
         description: "Firebase is not connected. Please check your configuration and try again.",
@@ -55,7 +55,7 @@ export default function AiImporterForm({ setIsGenerating, isGenerating, setPrevi
         
         await addDoc(collection(db, productsCollectionPath), {
           ...generatedData,
-          userId: auth.currentUser.uid,
+          userId: 'anonymous',
           timestamp: serverTimestamp(),
         });
         

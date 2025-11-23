@@ -6,10 +6,10 @@ import { Bot, Menu, ShoppingCart } from 'lucide-react';
 import { Analytics } from '@vercel/analytics/react';
 import Link from 'next/link';
 import { AuthProvider } from '@/context/auth-provider';
-import AuthButton from './components/auth-button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
 import Script from 'next/script';
+import { cn } from '@/lib/utils';
 
 export const metadata: Metadata = {
   title: 'Codernest E-commerce',
@@ -40,7 +40,7 @@ export default function RootLayout({
           `}
         </Script>
       </head>
-      <body className="font-body antialiased bg-background text-foreground">
+      <body className={cn("font-body antialiased bg-background text-foreground", "transition-colors duration-300")}>
         <AuthProvider>
           <div className="flex min-h-screen w-full flex-col">
             <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6 z-50">
@@ -119,7 +119,6 @@ export default function RootLayout({
                     0
                   </span>
                 </button>
-                <AuthButton />
               </div>
             </header>
             {children}
