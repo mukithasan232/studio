@@ -2,6 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ShoppingCart } from "lucide-react";
@@ -29,7 +30,9 @@ export default function LandingPage() {
                 Explore our curated collection of high-quality products. We find the best, so you don't have to.
               </p>
               <div className="space-x-4 mt-6">
-                <Button size="lg">Explore Products</Button>
+                <Button size="lg" asChild>
+                  <Link href="/#products">Explore Products</Link>
+                </Button>
                 <Button size="lg" variant="outline">
                   About Us
                 </Button>
@@ -60,29 +63,31 @@ export default function LandingPage() {
           </div>
           <div className="mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-12">
             {products.map((product) => (
-              <Card key={product.id} className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
-                <CardContent className="p-0">
-                  <Image
-                    src={product.imageUrl}
-                    alt={product.name}
-                    width="400"
-                    height="300"
-                    className="w-full h-48 object-cover"
-                    data-ai-hint={product.imageHint}
-                  />
-                  <div className="p-4">
-                    <h3 className="text-lg font-bold">{product.name}</h3>
-                    <p className="text-sm text-muted-foreground h-10">{product.description}</p>
-                    <div className="flex items-center justify-between mt-4">
-                      <span className="text-xl font-bold">${product.price.toFixed(2)}</span>
-                      <Button size="sm">
-                        <ShoppingCart className="mr-2 h-4 w-4" />
-                        Add to Cart
-                      </Button>
+               <Link key={product.id} href={`/product/${product.id}`} className="block">
+                <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 h-full">
+                    <CardContent className="p-0 flex flex-col h-full">
+                    <Image
+                        src={product.imageUrl}
+                        alt={product.name}
+                        width="400"
+                        height="300"
+                        className="w-full h-48 object-cover"
+                        data-ai-hint={product.imageHint}
+                    />
+                    <div className="p-4 flex flex-col flex-grow">
+                        <h3 className="text-lg font-bold">{product.name}</h3>
+                        <p className="text-sm text-muted-foreground h-10 flex-grow">{product.description}</p>
+                        <div className="flex items-center justify-between mt-4">
+                        <span className="text-xl font-bold">${product.price.toFixed(2)}</span>
+                        <Button size="sm">
+                            <ShoppingCart className="mr-2 h-4 w-4" />
+                            Add to Cart
+                        </Button>
+                        </div>
                     </div>
-                  </div>
-                </CardContent>
-              </Card>
+                    </CardContent>
+                </Card>
+              </Link>
             ))}
           </div>
         </div>
