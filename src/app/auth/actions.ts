@@ -1,3 +1,5 @@
+'use server';
+
 // IMPORTANT: This file needs to be a server component
 // so that we can use the Firebase Admin SDK.
 // We are NOT using the 'use server' directive here because
