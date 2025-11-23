@@ -26,6 +26,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (!auth) {
+      console.warn("Firebase auth is not initialized. Skipping auth state listener.");
       setLoading(false);
       return;
     }
@@ -44,7 +45,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       toast({ title: "Logged Out", description: "You have been successfully logged out." });
       router.push('/');
     } catch (error) {
-      toast({ title: "Logout Failed", description: "Could not log you out. Please try again.", variant: "destructive" });
+      const errorMessage = error instanceof Error ? error.message : "Could not log you out. Please try again.";
+      toast({ title: "Logout Failed", description: errorMessage, variant: "destructive" });
     }
   };
 
@@ -54,5 +56,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 }
 
 export function useAuth() {
-  return useContext(AuthContext);
+  const context = useContext(AuthContext);
+  if (context === undefined) {
+    throw new Error("useAuth must be used within an AuthProvider");
+  }
+  return context;
 }
