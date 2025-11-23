@@ -1,0 +1,79 @@
+mutation CreateSeedData @transaction @auth(level: PUBLIC, insecureReason: "This operation is for seeding data and is safe to expose to the public.") {
+  user_insertMany(data: [
+    {
+      id: "6b29c278-2527-4c3b-8801-07d322676dda",
+      createdAt: "2024-04-26T12:00:00Z",
+      displayName: "John Doe",
+      email: "john.doe@example.com",
+      passwordHash: "somehash1",
+      userType: "buyer"
+    },
+    {
+      id: "7d8de654-9876-5432-10ab-abcdef123456",
+      createdAt: "2024-04-26T13:00:00Z",
+      displayName: "Jane Smith",
+      email: "jane.smith@example.com",
+      passwordHash: "somehash2",
+      userType: "seller"
+    }
+  ])
+  category_insertMany(data: [
+    {
+      id: "a1b2c3d4-e5f6-7890-1234-567890abcdef",
+      createdAt: "2024-04-26T14:00:00Z",
+      name: "Electronics"
+    },
+    {
+      id: "bcde4444-e5f6-7890-1234-567890abcdef",
+      createdAt: "2024-04-26T14:00:00Z",
+      name: "Books"
+    }
+  ])
+  product_insertMany(data: [
+    {
+      id: "1a2b3c4d-5e6f-7890-1234-567890abcdef",
+      categoryId: "a1b2c3d4-e5f6-7890-1234-567890abcdef",
+      sellerId: "7d8de654-9876-5432-10ab-abcdef123456",
+      createdAt: "2024-04-26T15:00:00Z",
+      name: "Laptop",
+      price: 1200.00,
+      stockQuantity: 10
+    },
+   {
+      id: "2a2b3c4d-5e6f-7890-1234-567890abcdef",
+      categoryId: "bcde4444-e5f6-7890-1234-567890abcdef",
+      sellerId: "7d8de654-9876-5432-10ab-abcdef123456",
+      createdAt: "2024-04-26T15:00:00Z",
+      name: "The Hitchhiker's Guide to the Galaxy",
+      price: 20.00,
+      stockQuantity: 100
+    }
+  ])
+  productImage_insertMany(data: [
+    {
+      id: "img1a2b3c4d-5e6f-7890-1234-567890abcdef",
+      productId: "1a2b3c4d-5e6f-7890-1234-567890abcdef",
+      createdAt: "2024-04-26T16:00:00Z",
+      imageUrl: "https://example.com/laptop.jpg",
+      isPrimary: true
+    }
+  ])
+  order_insertMany(data: [
+    {
+      id: "order1a2b3c4d-5e6f-7890-1234-567890abcdef",
+      buyerId: "6b29c278-2527-4c3b-8801-07d322676dda",
+      createdAt: "2024-04-27T10:00:00Z",
+      orderDate: "2024-04-27T10:00:00Z",
+      status: "pending",
+      totalAmount: 1200.00
+    }
+  ])
+  orderItem_insertMany(data: [
+    {
+      orderId: "order1a2b3c4d-5e6f-7890-1234-567890abcdef",
+      productId: "1a2b3c4d-5e6f-7890-1234-567890abcdef",
+      priceAtPurchase: 1200.00,
+      quantity: 1
+    }
+  ])
+}
