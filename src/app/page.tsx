@@ -1,14 +1,17 @@
-"use client";
+'use client';
 
-import React from "react";
-import Image from "next/image";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { ShoppingCart } from "lucide-react";
-import { products } from "@/lib/placeholder-images";
+import React from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { ShoppingCart } from 'lucide-react';
+import { useProducts } from '@/hooks/use-products';
+import { Skeleton } from '@/components/ui/skeleton';
 
 export default function LandingPage() {
+  const { products, isLoading } = useProducts();
+
   return (
     <main className="flex-1">
       <section className="relative w-full pt-12 md:pt-24 lg:pt-32">
@@ -27,7 +30,7 @@ export default function LandingPage() {
                 Discover Your Next Favorite Thing
               </h1>
               <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl mt-4">
-                Explore our curated collection of high-quality products. We find the best, so you don't have to.
+                Explore our curated collection of high-quality products. We find the best, so you don&apos;t have to.
               </p>
               <div className="space-x-4 mt-6">
                 <Button size="lg" asChild>
@@ -40,7 +43,7 @@ export default function LandingPage() {
             </div>
             <div className="flex justify-center items-center">
               <Image
-                src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxoZWFkcGhvbmVzJTIwcHJvZHVjdHxlbnwwfHx8fDE3MTc4NzUxNDR8MA&ixlib=rb-4.0.3&q=80&w=1080"
+                src="https://images.unsplash.com/photo-1546435770-a3e426bf472b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxoZWFkcGhvbmVzfGVufDB8fHx8MTc2Mzg3NTkzOHww&ixlib=rb-4.1.0&q=80&w=1080"
                 width="600"
                 height="600"
                 alt="Featured Product"
@@ -57,42 +60,46 @@ export default function LandingPage() {
             <div className="space-y-2">
               <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Featured Products</h2>
               <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                Hand-picked items that we think you'll love. High quality, great prices.
+                Hand-picked items that we think you&apos;ll love. High quality, great prices.
               </p>
             </div>
           </div>
           <div className="mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-12">
-            {products.map((product) => (
-               <Link key={product.id} href={`/product/${product.id}`} className="block">
-                <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 h-full">
+            {isLoading ? (
+              Array.from({ length: 4 }).map((_, i) => <ProductCardSkeleton key={i} />)
+            ) : products.length > 0 ? (
+              products.map((product) => (
+                <Link key={product.id} href={`/product/${product.id}`} className="block">
+                  <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 h-full">
                     <CardContent className="p-0 flex flex-col h-full">
-                    <Image
+                      <Image
                         src={product.imageUrl}
                         alt={product.name}
                         width="400"
                         height="300"
                         className="w-full h-48 object-cover"
-                        data-ai-hint={product.imageHint}
-                    />
-                    <div className="p-4 flex flex-col flex-grow">
+                      />
+                      <div className="p-4 flex flex-col flex-grow">
                         <h3 className="text-lg font-bold">{product.name}</h3>
-                        <p className="text-sm text-muted-foreground h-10 flex-grow">{product.description}</p>
+                        <div className="flex-grow" />
                         <div className="flex items-center justify-between mt-4">
-                        <span className="text-xl font-bold">${product.price.toFixed(2)}</span>
-                        <Button size="sm">
-                            <ShoppingCart className="mr-2 h-4 w-4" />
-                            Add to Cart
-                        </Button>
+                          <span className="text-xl font-bold">${product.price.toFixed(2)}</span>
+                          <Button size="sm" variant="outline">
+                            View Details
+                          </Button>
                         </div>
-                    </div>
+                      </div>
                     </CardContent>
-                </Card>
-              </Link>
-            ))}
+                  </Card>
+                </Link>
+              ))
+            ) : (
+               <p className="col-span-full text-center text-muted-foreground">No products yet. Add some from the Admin page!</p>
+            )}
           </div>
         </div>
       </section>
-       <section className="w-full py-12 md:py-24 lg:py-32">
+      <section className="w-full py-12 md:py-24 lg:py-32">
         <div className="container grid items-center justify-center gap-4 px-4 text-center md:px-6">
           <div className="space-y-3">
             <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">
@@ -103,10 +110,30 @@ export default function LandingPage() {
             </p>
           </div>
           <div className="mx-auto w-full max-w-sm space-x-2">
-             <Button type="submit" size="lg">View All Products</Button>
+            <Button asChild type="submit" size="lg">
+                <Link href="/#products">
+                    View All Products
+                </Link>
+            </Button>
           </div>
         </div>
       </section>
     </main>
   );
 }
+
+
+const ProductCardSkeleton = () => (
+    <Card className="overflow-hidden">
+        <CardContent className="p-0">
+            <Skeleton className="w-full h-48" />
+            <div className="p-4 space-y-2">
+                <Skeleton className="h-6 w-3/4" />
+                <div className="flex items-center justify-between mt-4">
+                    <Skeleton className="h-8 w-1/4" />
+                    <Skeleton className="h-8 w-1/3" />
+                </div>
+            </div>
+        </CardContent>
+    </Card>
+)
