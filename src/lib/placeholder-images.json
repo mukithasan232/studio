@@ -1,3 +1,10 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "product-headphones",
+      "description": "Wireless Noise-Cancelling Headphones",
+      "imageUrl": "https://images.unsplash.com/photo-1546435770-a3e426bf472b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxoZWFkcGhvbmVzfGVufDB8fHx8MTc2Mzg3NTkzOHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "headphones"
+    }
+  ]
 }
