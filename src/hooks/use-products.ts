@@ -5,13 +5,20 @@ import { collection, query, orderBy, onSnapshot } from 'firebase/firestore';
 import { db, auth } from '@/lib/firebase';
 import type { Product } from '@/lib/types';
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from '@/context/auth-provider';
 
 export function useProducts() {
   const [products, setProducts] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const { toast } = useToast();
+  const { user, loading: authLoading } = useAuth();
 
   useEffect(() => {
+    if (authLoading) {
+        // Wait for authentication to resolve
+        return;
+    }
+
     if (!db || !auth) {
       if (process.env.NODE_ENV === 'development') {
         toast({
@@ -25,8 +32,7 @@ export function useProducts() {
       return;
     }
 
-    const unsubscribeAuth = auth.onAuthStateChanged(user => {
-      if (user) {
+    if (user) {
         // This is a demo app, so we use a predictable app ID.
         // In a real multi-tenant app, this would come from the environment.
         const appId = 'ai-affiliate-automator'; 
@@ -57,10 +63,7 @@ export function useProducts() {
         setIsLoading(false);
         setProducts([]);
       }
-    });
-
-    return () => unsubscribeAuth();
-  }, [toast]);
+  }, [toast, user, authLoading]);
 
   return { products, isLoading };
 }

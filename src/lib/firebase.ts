@@ -1,6 +1,6 @@
 import { initializeApp, getApp, getApps, FirebaseOptions } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
-import { getAuth, signInAnonymously } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 
 const firebaseConfigString = process.env.NEXT_PUBLIC_FIREBASE_CONFIG;
 
@@ -21,12 +21,7 @@ const app = firebaseConfig && !getApps().length ? initializeApp(firebaseConfig) 
 const db = app ? getFirestore(app) : null;
 const auth = app ? getAuth(app) : null;
 
-if (auth) {
-    signInAnonymously(auth).catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.error(`Anonymous sign-in failed (${errorCode}): ${errorMessage}`);
-    });
-}
+// The explicit sign-in flow will be handled by our UI components.
+// We no longer need to sign in anonymously here.
 
-export { db, auth };
+export { db, auth, app as firebaseApp };
