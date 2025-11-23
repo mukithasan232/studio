@@ -16,7 +16,7 @@ export default function LandingPage() {
   const featuredImage = PlaceHolderImages.find(img => img.id === 'product-headphones');
 
   return (
-    <main className="flex-1">
+    <>
       <section className="relative w-full pt-12 md:pt-24 lg:pt-32">
         {heroImage && (
           <Image
@@ -24,7 +24,7 @@ export default function LandingPage() {
             fill
             objectFit="cover"
             alt="Hero background"
-            className="absolute inset-0 z-[-1] opacity-30"
+            className="absolute inset-0 z-[-1] opacity-20"
             data-ai-hint={heroImage.imageHint}
             priority
           />
@@ -54,7 +54,7 @@ export default function LandingPage() {
                   width="600"
                   height="600"
                   alt="Featured Product"
-                  className="mx-auto aspect-square overflow-hidden rounded-xl object-cover"
+                  className="mx-auto aspect-square overflow-hidden rounded-xl object-cover shadow-2xl"
                   data-ai-hint={featuredImage.imageHint}
                 />
               )}
@@ -62,7 +62,7 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
-      <section id="products" className="w-full py-12 md:py-24 lg:py-32 bg-muted">
+      <section id="products" className="w-full py-12 md:py-24 lg:py-32 bg-muted/40">
         <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center justify-center space-y-4 text-center">
             <div className="space-y-2">
@@ -78,8 +78,8 @@ export default function LandingPage() {
             ) : products.length > 0 ? (
               products.map((product) => (
                 <Link key={product.id} href={`/product/${product.id}`} className="block group">
-                  <Card className="overflow-hidden shadow-lg group-hover:shadow-xl transition-all duration-300 h-full">
-                    <CardContent className="p-0 flex flex-col h-full">
+                  <Card className="overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 h-full flex flex-col">
+                    <CardContent className="p-0 flex flex-col flex-grow">
                       <div className="relative w-full h-48 overflow-hidden">
                         <Image
                           src={product.imageUrl}
@@ -93,7 +93,7 @@ export default function LandingPage() {
                         <div className="flex-grow" />
                         <div className="flex items-center justify-between mt-4">
                           <span className="text-xl font-bold">${product.price.toFixed(2)}</span>
-                          <Button size="sm" variant="outline">
+                          <Button size="sm" variant="secondary">
                             View Details
                           </Button>
                         </div>
@@ -103,7 +103,7 @@ export default function LandingPage() {
                 </Link>
               ))
             ) : (
-               <p className="col-span-full text-center text-muted-foreground">No products yet. Add some from the Admin page!</p>
+               <p className="col-span-full text-center text-muted-foreground py-10">No products yet. Add some from the Admin page!</p>
             )}
           </div>
         </div>
@@ -127,20 +127,20 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
-    </main>
+    </>
   );
 }
 
 
 const ProductCardSkeleton = () => (
-    <Card className="overflow-hidden">
+    <Card className="overflow-hidden shadow-md">
         <CardContent className="p-0">
             <Skeleton className="w-full h-48" />
-            <div className="p-4 space-y-2">
+            <div className="p-4 space-y-3">
                 <Skeleton className="h-6 w-3/4" />
-                <div className="flex items-center justify-between mt-4">
+                <div className="flex items-center justify-between pt-2">
                     <Skeleton className="h-8 w-1/4" />
-                    <Skeleton className="h-8 w-1/3" />
+                    <Skeleton className="h-9 w-1/3" />
                 </div>
             </div>
         </CardContent>

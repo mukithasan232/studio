@@ -22,7 +22,7 @@ export default function AdminPage() {
   };
 
   return (
-    <main className="flex-1 bg-muted/20">
+    <div className="flex-1 bg-muted/20">
       <div className="container mx-auto p-4 sm:p-6 lg:p-8 space-y-8">
         <AppHeader />
         <InstructionBox />
@@ -41,6 +41,6 @@ export default function AdminPage() {
           </div>
         </div>
       </div>
-    </main>
+    </div>
   );
 }

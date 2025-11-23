@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 @layer base {
@@ -57,6 +57,18 @@ body {
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased;
   }
+}
+
+.ai-content h3 {
+    @apply text-xl font-bold text-primary mt-4 mb-2;
+}
+
+.ai-content ul {
+    @apply list-disc list-inside space-y-1 text-card-foreground/90;
+}
+
+.ai-content li {
+    @apply ml-4;
 }

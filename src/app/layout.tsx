@@ -41,30 +41,30 @@ export default function RootLayout({
       </head>
       <body className={cn("font-body antialiased bg-background text-foreground", "transition-colors duration-300")}>
           <div className="flex min-h-screen w-full flex-col">
-            <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6 z-50">
+            <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background/95 backdrop-blur-sm px-4 md:px-6 z-50">
               <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
                 <Link
                   href="/"
                   className="flex items-center gap-2 text-lg font-semibold md:text-base"
                 >
-                  <Bot className="h-6 w-6" />
-                  <span className="">Codernest</span>
+                  <Bot className="h-6 w-6 text-primary" />
+                  <span className="font-bold">Codernest</span>
                 </Link>
                 <Link
                   href="/"
-                  className="text-foreground transition-colors hover:text-foreground"
+                  className="text-foreground transition-colors hover:text-primary"
                 >
                   Home
                 </Link>
                 <Link
                   href="/#products"
-                  className="text-muted-foreground transition-colors hover:text-foreground"
+                  className="text-muted-foreground transition-colors hover:text-primary"
                 >
                   Products
                 </Link>
                 <Link
                   href="/admin"
-                  className="text-muted-foreground transition-colors hover:text-foreground"
+                  className="text-muted-foreground transition-colors hover:text-primary"
                 >
                   Add Product
                 </Link>
@@ -86,21 +86,21 @@ export default function RootLayout({
                       href="/"
                       className="flex items-center gap-2 text-lg font-semibold"
                     >
-                      <Bot className="h-6 w-6" />
-                      <span className="">Codernest</span>
+                      <Bot className="h-6 w-6 text-primary" />
+                      <span className="font-bold">Codernest</span>
                     </Link>
-                    <Link href="/" className="hover:text-foreground">
+                    <Link href="/" className="hover:text-primary">
                       Home
                     </Link>
                     <Link
                       href="/#products"
-                      className="text-muted-foreground hover:text-foreground"
+                      className="text-muted-foreground hover:text-primary"
                     >
                       Products
                     </Link>
                     <Link
                       href="/admin"
-                      className="text-muted-foreground hover:text-foreground"
+                      className="text-muted-foreground hover:text-primary"
                     >
                       Add Product
                     </Link>
@@ -119,7 +119,7 @@ export default function RootLayout({
                 </button>
               </div>
             </header>
-            {children}
+            <main className="flex-1">{children}</main>
              <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t">
               <p className="text-xs text-muted-foreground">&copy; 2024 Codernest Inc. All rights reserved.</p>
               <nav className="sm:ml-auto flex gap-4 sm:gap-6">
