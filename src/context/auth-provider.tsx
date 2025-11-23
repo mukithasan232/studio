@@ -56,9 +56,3 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 export function useAuth() {
   return useContext(AuthContext);
 }
-
-// A component to easily access auth state
-export function AuthState({ children }: { children: (state: AuthContextType) => ReactNode }) {
-  const authState = useAuth();
-  return <>{children(authState)}</>;
-}

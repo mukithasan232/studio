@@ -1,11 +1,11 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
-import { Bot, ShoppingCart, User, LogIn } from 'lucide-react';
+import { Bot, ShoppingCart } from 'lucide-react';
 import { Analytics } from '@vercel/analytics/react';
 import Link from 'next/link';
-import { AuthProvider, AuthState } from '@/context/auth-provider';
-import { Button } from '@/components/ui/button';
+import { AuthProvider } from '@/context/auth-provider';
+import AuthButton from './components/auth-button';
 
 export const metadata: Metadata = {
   title: 'Codernest E-commerce',
@@ -65,26 +65,7 @@ export default function RootLayout({
                     0
                   </span>
                 </button>
-                <AuthState>
-                  {({user, handleLogout}) => (
-                    <>
-                      {user ? (
-                        <div className="flex items-center gap-2">
-                           <span className='text-sm text-muted-foreground hidden sm:inline-block'>{user.email}</span>
-                           <Button variant="ghost" size="icon" onClick={handleLogout}>
-                              <User className="h-6 w-6" />
-                           </Button>
-                        </div>
-                      ) : (
-                         <Button asChild variant="ghost" size="icon">
-                            <Link href="/login">
-                              <LogIn className="h-6 w-6" />
-                            </Link>
-                         </Button>
-                      )}
-                    </>
-                  )}
-                </AuthState>
+                <AuthButton />
               </div>
             </header>
             {children}
