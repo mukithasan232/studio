@@ -21,7 +21,4 @@ const app = firebaseConfig && !getApps().length ? initializeApp(firebaseConfig) 
 const db = app ? getFirestore(app) : null;
 const auth = app ? getAuth(app) : null;
 
-// The explicit sign-in flow will be handled by our UI components.
-// We no longer need to sign in anonymously here.
-
 export { db, auth, app as firebaseApp };
