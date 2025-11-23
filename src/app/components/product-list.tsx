@@ -14,7 +14,7 @@ export default function ProductList() {
       <CardHeader>
         <CardTitle className="text-2xl font-semibold border-b pb-3 flex items-center gap-2">
           <Database />
-          ৩. লাইভ প্রোডাক্টের তালিকা (Firestore)
+          ৩. লাইভ প্রোডাক্টের তালিকা
         </CardTitle>
       </CardHeader>
       <CardContent>

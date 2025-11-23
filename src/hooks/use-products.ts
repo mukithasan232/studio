@@ -16,7 +16,7 @@ export function useProducts() {
       if (process.env.NODE_ENV === 'development') {
         toast({
           title: "Firebase Not Configured",
-          description: "Please check your configuration to see the live product list.",
+          description: "Cannot display live product list. Please check your Firebase setup.",
           variant: "destructive",
         });
       }
@@ -24,10 +24,8 @@ export function useProducts() {
       setIsLoading(false);
       return;
     }
-
-    // This is a demo app, so we use a predictable app ID.
-    // In a real multi-tenant app, this would come from the environment.
-    const appId = 'ai-affiliate-automator'; 
+    
+    const appId = 'ai-affiliate-automator';
     const productsCollectionPath = `artifacts/${appId}/public/data/products`;
     
     const q = query(collection(db, productsCollectionPath), orderBy("timestamp", "desc"));

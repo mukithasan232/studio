@@ -18,6 +18,7 @@ export default function AdminPage() {
 
   const handleProductPublished = () => {
     setProductUpdateKey(prevKey => prevKey + 1);
+    setPreviewData(null); 
   };
 
   return (

@@ -4,7 +4,13 @@
       "id": "product-headphones",
       "description": "Wireless Noise-Cancelling Headphones",
       "imageUrl": "https://images.unsplash.com/photo-1546435770-a3e426bf472b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxoZWFkcGhvbmVzfGVufDB8fHx8MTc2Mzg3NTkzOHww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "headphones"
+      "imageHint": "headphones product"
+    },
+    {
+      "id": "hero-background",
+      "description": "Abstract hero background image",
+      "imageUrl": "https://images.unsplash.com/photo-1522204523234-8729aa6e3d5f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxoZXJvJTIwYmFja2dyb3VuZHxlbnwwfHx8fDE3MTc4NzUwODR8MA&ixlib=rb-4.0.3&q=80&w=1080",
+      "imageHint": "hero background"
     }
   ]
 }

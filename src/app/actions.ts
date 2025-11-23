@@ -1,50 +1,32 @@
 "use server";
 
 import { generateProductDescription } from "@/ai/flows/generate-product-description";
-import { PlaceHolderImages } from "@/lib/placeholder-images";
 import type { GeneratedProductData } from "@/lib/types";
 
-// For the prototype, we use a mock function that returns static data.
-// In a real system, this would involve a web scraping service.
-function getMockProductData(link: string) {
-  const headphoneImage = PlaceHolderImages.find(img => img.id === 'product-headphones');
-
-  return {
-    productName: "Wireless Noise-Cancelling Headphones Pro",
-    features: "Active Noise Cancellation, 30 Hour Battery Life, Comfortable Over-Ear Design, Crystal Clear Calls",
-    price: 249.99,
-    imageUrl: headphoneImage?.imageUrl || "https://picsum.photos/seed/placeholder/300/200", 
-    link: link,
-  };
-}
-
 export async function generateProductDataAction(
-  affiliateLink: string
+  productData: Omit<GeneratedProductData, 'description' | 'source'> & { features: string }
 ): Promise<{ success: true; data: GeneratedProductData } | { success: false; error: string }> {
   try {
-    if (!affiliateLink) {
-        return { success: false, error: "Product URL cannot be empty." };
+    if (!productData.link || !productData.name || !productData.imageUrl || !productData.price) {
+        return { success: false, error: "All fields are required." };
     }
 
-    // Step 1: Get product data (mocked for this prototype)
-    const { productName, features, price, imageUrl, link } = getMockProductData(affiliateLink);
-
-    // Step 2: Generate description with AI
+    // Step 1: Generate description with AI using provided name and features
     const aiResult = await generateProductDescription({
-      productName: productName,
-      features: features,
+      productName: productData.name,
+      features: productData.features,
     });
     
     if (!aiResult.htmlDescription) {
         return { success: false, error: "AI failed to generate a description." };
     }
 
-    // Step 3: Combine and return all data for the client to save
+    // Step 2: Combine and return all data for the client to save
     const finalData: GeneratedProductData = {
-      name: productName,
-      price,
-      link,
-      imageUrl,
+      name: productData.name,
+      price: productData.price,
+      link: productData.link,
+      imageUrl: productData.imageUrl,
       description: aiResult.htmlDescription,
       source: "AI-Importer",
     };
