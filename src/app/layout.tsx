@@ -2,10 +2,11 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 import { Bot, ShoppingCart, User } from 'lucide-react';
+import { Analytics } from '@vercel/analytics/react';
 
 export const metadata: Metadata = {
   title: 'Codernest E-commerce',
-  description: 'A modern, SEO-friendly e-commerce site.',
+  description: 'A modern, SEO-friendly e-commerce site for affiliate marketing.',
 };
 
 export default function RootLayout({
@@ -25,29 +26,29 @@ export default function RootLayout({
           <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6 z-50">
             <nav className="flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
               <a
-                href="#"
+                href="/"
                 className="flex items-center gap-2 text-lg font-semibold md:text-base"
               >
                 <Bot className="h-6 w-6" />
-                <span className="sr-only">Codernest</span>
+                <span className="">Codernest</span>
               </a>
               <a
-                href="#"
+                href="/"
                 className="text-foreground transition-colors hover:text-foreground"
               >
                 Home
               </a>
               <a
-                href="#products"
+                href="/#products"
                 className="text-muted-foreground transition-colors hover:text-foreground"
               >
                 Products
               </a>
               <a
-                href="#"
+                href="/admin"
                 className="text-muted-foreground transition-colors hover:text-foreground"
               >
-                About
+                Admin
               </a>
             </nav>
             <div className="flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
@@ -57,7 +58,7 @@ export default function RootLayout({
                <button className="relative">
                 <ShoppingCart className="h-6 w-6" />
                 <span className="absolute -top-2 -right-2 bg-primary text-primary-foreground text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
-                  3
+                  0
                 </span>
               </button>
               <button>
@@ -79,6 +80,7 @@ export default function RootLayout({
           </footer>
         </div>
         <Toaster />
+        <Analytics />
       </body>
     </html>
   );
