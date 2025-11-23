@@ -8,12 +8,14 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { useProducts } from '@/hooks/use-products';
 import { Skeleton } from '@/components/ui/skeleton';
-import { placeholderImages as PlaceHolderImages } from '@/lib/placeholder-images.json';
+import placeholderData from '@/lib/placeholder-images.json';
 
 export default function LandingPage() {
   const { products, isLoading } = useProducts();
-  const heroImage = PlaceHolderImages.find(img => img.id === 'hero-background');
-  const featuredImage = PlaceHolderImages.find(img => img.id === 'product-headphones');
+  const { placeholderImages } = placeholderData;
+
+  const heroImage = placeholderImages.find(img => img.id === 'hero-background');
+  const featuredImage = placeholderImages.find(img => img.id === 'product-headphones');
 
   return (
     <>
