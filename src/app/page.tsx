@@ -1,3 +1,4 @@
+
 'use client';
 
 import React from 'react';
@@ -17,14 +18,14 @@ export default function LandingPage() {
       <section className="relative w-full pt-12 md:pt-24 lg:pt-32">
         <Image
           src="https://images.unsplash.com/photo-1522204523234-8729aa6e3d5f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxoZXJvJTIwYmFja2dyb3VuZHxlbnwwfHx8fDE3MTc4NzUwODR8MA&ixlib=rb-4.0.3&q=80&w=1080"
-          layout="fill"
+          fill
           objectFit="cover"
           alt="Hero background"
           className="absolute inset-0 z-[-1] opacity-30"
           data-ai-hint="hero background"
         />
         <div className="container px-4 md:px-6 space-y-10 xl:space-y-16">
-          <div className="grid max-w-[1300px] mx-auto gap-4 px-4 sm:px-6 md:px-10 md:grid-cols-2 md:gap-16">
+          <div className="grid max-w-[1300px] mx-auto gap-8 px-4 sm:px-6 md:px-10 md:grid-cols-2 md:gap-16 items-center">
             <div>
               <h1 className="lg:leading-tighter text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl xl:text-[3.4rem] 2xl:text-[3.75rem]">
                 Discover Your Next Favorite Thing
@@ -69,16 +70,18 @@ export default function LandingPage() {
               Array.from({ length: 4 }).map((_, i) => <ProductCardSkeleton key={i} />)
             ) : products.length > 0 ? (
               products.map((product) => (
-                <Link key={product.id} href={`/product/${product.id}`} className="block">
-                  <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 h-full">
+                <Link key={product.id} href={`/product/${product.id}`} className="block group">
+                  <Card className="overflow-hidden shadow-lg group-hover:shadow-xl transition-all duration-300 h-full">
                     <CardContent className="p-0 flex flex-col h-full">
-                      <Image
-                        src={product.imageUrl}
-                        alt={product.name}
-                        width="400"
-                        height="300"
-                        className="w-full h-48 object-cover"
-                      />
+                      <div className="overflow-hidden">
+                        <Image
+                          src={product.imageUrl}
+                          alt={product.name}
+                          width="400"
+                          height="300"
+                          className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                      </div>
                       <div className="p-4 flex flex-col flex-grow">
                         <h3 className="text-lg font-bold">{product.name}</h3>
                         <div className="flex-grow" />
